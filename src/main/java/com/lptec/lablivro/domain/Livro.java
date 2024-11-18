@@ -2,6 +2,9 @@ package com.lptec.lablivro.domain;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Livro {
 
 	private Long id;
