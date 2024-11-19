@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lptec.lablivro.domain.Livro;
+import com.lptec.lablivro.repositories.LivroRepository;
 import com.lptec.lablivro.services.LivroService;
 
 @RestController
@@ -40,4 +41,11 @@ public class LivroResource {
 	public void excluirLivro(@PathVariable Long id) {
 		livroService.excluirLivro(id);
 	}
+	@Autowired
+    private LivroRepository livroRepository;
+	
+	@GetMapping("/categoria/{id}")
+    public List<Livro> listarPorCategoria(@PathVariable Long id) {
+        return livroRepository.findByCategorias_Id(id);
+    }
 }

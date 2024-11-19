@@ -1,11 +1,14 @@
 package com.lptec.lablivro.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Autor {
@@ -18,6 +21,9 @@ public class Autor {
 
 	public Autor() {
 	}
+	
+	@OneToMany
+	private List<Livro> livros = new ArrayList<>();
 
 	public Autor(Long id, String nomeAutor) {
 		super();

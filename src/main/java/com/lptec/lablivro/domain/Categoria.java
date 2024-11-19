@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Categoria {
@@ -18,6 +19,7 @@ public class Categoria {
 	
 	private String nomeCategora;
 	
+	@ManyToMany
 	private List<Livro> livros = new ArrayList<>();
 	
 	public Categoria() {

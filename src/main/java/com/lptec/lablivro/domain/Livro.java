@@ -1,11 +1,16 @@
 package com.lptec.lablivro.domain;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -22,19 +27,22 @@ public class Livro {
 	@ManyToOne
 	private Autor autor;
 
-	private Categoria categoria;
+	@ManyToMany
+	@JoinTable(name="livro_categoria", joinColumns = @JoinColumn(name="livro_id"),
+	inverseJoinColumns = @JoinColumn(name="categoria_id")
+	)
+	private Set<Categoria> categorias = new HashSet<>();
 
 	public Livro() {
 	}
 
-	public Livro(Long id, String titulo, String editora, int anoPublicacao, Autor autor, Categoria categoria) {
-		super();
+	public Livro(Long id, String titulo, String editora, int anoPublicacao, Autor autor, Set<Categoria> categorias) {
 		this.id = id;
 		this.titulo = titulo;
 		this.editora = editora;
 		this.anoPublicacao = anoPublicacao;
 		this.autor = autor;
-		this.categoria = categoria;
+		this.categorias = categorias;
 	}
 
 	public Long getId() {
@@ -77,12 +85,12 @@ public class Livro {
 		this.autor = autor;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Set<Categoria> getCategoria() {
+		return categorias;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategoria(Set<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
 	@Override
