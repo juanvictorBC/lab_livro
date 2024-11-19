@@ -1,8 +1,8 @@
 package com.lptec.lablivro.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,8 +22,8 @@ public class Autor {
 	public Autor() {
 	}
 	
-	@OneToMany
-	private List<Livro> livros = new ArrayList<>();
+	@OneToMany(mappedBy = "autor")
+	private Set<Livro> livros = new HashSet<>();
 
 	public Autor(Long id, String nomeAutor) {
 		super();
@@ -46,6 +46,9 @@ public class Autor {
 	public void setNome(String nomeAutor) {
 		this.nomeAutor = nomeAutor;
 	}
+	public Set<Livro> getLivros() {
+		return getLivros();
+	}
 
 	@Override
 	public int hashCode() {
@@ -63,5 +66,7 @@ public class Autor {
 		Autor other = (Autor) obj;
 		return Objects.equals(id, other.id);
 	}
+
+
 
 }

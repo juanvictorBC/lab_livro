@@ -7,5 +7,6 @@ import com.lptec.lablivro.domain.Autor;
 
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {
+	
 
 }

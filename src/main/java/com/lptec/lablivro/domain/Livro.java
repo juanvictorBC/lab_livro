@@ -25,6 +25,7 @@ public class Livro {
 	private int anoPublicacao;
 
 	@ManyToOne
+	@JoinColumn(name="autor_id")
 	private Autor autor;
 
 	@ManyToMany

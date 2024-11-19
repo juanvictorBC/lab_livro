@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabLivro - Cadastro de Autores</title>
+</head>
+<body>
+    <h1>Cadastro de Autores</h1>
+
+    <!-- Formulário para Adicionar Autores -->
+    <form id="autorForm">
+        <label for="nome">Nome do Autor:</label>
+        <input type="text" id="nome" name="nome" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <h2>Lista de Autores</h2>
+    <ul id="listaAutores"></ul>
+
+    <script>
+        const apiBaseUrl = "http://localhost:8080/autores"; // URL do backend
+
+        // Função para carregar autores da API
+        async function carregarAutores() {
+            try {
+                const response = await fetch(apiBaseUrl);
+                const autores = await response.json();
+
+                const listaAutores = document.getElementById("listaAutores");
+                listaAutores.innerHTML = ""; // Limpa a lista antes de renderizar
+
+                autores.forEach((autor) => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${autor.nome}`;
+                    listaAutores.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar autores:", error);
+            }
+        }
+
+        // Função para cadastrar um novo autor
+        async function cadastrarAutor(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const nome = document.getElementById("nome").value;
+
+            try {
+                const response = await fetch(apiBaseUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ nome }),
+                });
+
+                if (response.ok) {
+                    alert("Autor cadastrado com sucesso!");
+                    document.getElementById("autorForm").reset(); // Limpa o formulário
+                    carregarAutores(); // Atualiza a lista de autores
+                } else {
+                    alert("Erro ao cadastrar autor.");
+                }
+            } catch (error) {
+                console.error("Erro ao cadastrar autor:", error);
+            }
+        }
+
+        // Evento para o envio do formulário
+        document.getElementById("autorForm").addEventListener("submit", cadastrarAutor);
+
+        // Carrega a lista de autores ao abrir a página
+        carregarAutores();
+    </script>
+</body>
+</html>

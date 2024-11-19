@@ -1,8 +1,8 @@
 package com.lptec.lablivro.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,8 +19,8 @@ public class Categoria {
 	
 	private String nomeCategora;
 	
-	@ManyToMany
-	private List<Livro> livros = new ArrayList<>();
+	@ManyToMany(mappedBy = "categorias")
+	private Set<Livro> livros = new HashSet<>();
 	
 	public Categoria() {
 	}
@@ -47,11 +47,11 @@ public class Categoria {
 		this.nomeCategora = nomeCategora;
 	}
 
-	public List<Livro> getLivros() {
+	public Set<Livro> getLivros() {
 		return livros;
 	}
 
-	public void setLivros(List<Livro> livros) {
+	public void setLivros(Set<Livro> livros) {
 		this.livros = livros;
 	}
 
