@@ -6,28 +6,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Livro {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String titulo;
-	private String autor;
 	private String editora;
 	private int anoPublicacao;
+
+	@ManyToOne
+	private Autor autor;
+
+	private Categoria categoria;
 
 	public Livro() {
 	}
 
-	public Livro(Long id, String titulo, String autor, String editora, int anoPublicacao) {
+	public Livro(Long id, String titulo, String editora, int anoPublicacao, Autor autor, Categoria categoria) {
+		super();
 		this.id = id;
 		this.titulo = titulo;
-		this.autor = autor;
 		this.editora = editora;
 		this.anoPublicacao = anoPublicacao;
+		this.autor = autor;
+		this.categoria = categoria;
 	}
 
 	public Long getId() {
@@ -46,14 +53,6 @@ public class Livro {
 		this.titulo = titulo;
 	}
 
-	public String getAutor() {
-		return autor;
-	}
-
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-
 	public String getEditora() {
 		return editora;
 	}
@@ -68,6 +67,22 @@ public class Livro {
 
 	public void setAnoPublicacao(int anoPublicacao) {
 		this.anoPublicacao = anoPublicacao;
+	}
+
+	public Autor getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override
@@ -86,4 +101,7 @@ public class Livro {
 		Livro other = (Livro) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
+
 }
