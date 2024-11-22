@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,21 +16,22 @@ import jakarta.persistence.ManyToMany;
 public class Categoria {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private String nomeCategora;
-	
+
+	private String nomeCategoria;
+
+	@JsonIgnore
 	@ManyToMany(mappedBy = "categorias")
 	private Set<Livro> livros = new HashSet<>();
-	
+
 	public Categoria() {
 	}
 
-	public Categoria(Long id, String nomeCategora) {
+	public Categoria(Long id, String nomeCategoria) {
 		super();
 		this.id = id;
-		this.nomeCategora = nomeCategora;
+		this.nomeCategoria = nomeCategoria;
 	}
 
 	public Long getId() {
@@ -39,12 +42,12 @@ public class Categoria {
 		this.id = id;
 	}
 
-	public String getNomeCategora() {
-		return nomeCategora;
+	public String getNomeCategoria() {
+		return nomeCategoria;
 	}
 
-	public void setNomeCategora(String nomeCategora) {
-		this.nomeCategora = nomeCategora;
+	public void setNomeCategora(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
 
 	public Set<Livro> getLivros() {
@@ -71,6 +74,5 @@ public class Categoria {
 		Categoria other = (Categoria) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }

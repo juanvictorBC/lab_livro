@@ -1,8 +1,9 @@
 package com.lptec.lablivro.domain;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,15 +25,15 @@ public class Livro {
 	private String editora;
 	private int anoPublicacao;
 
+	@JsonManagedReference
 	@ManyToOne
-	@JoinColumn(name="autor_id")
+	@JoinColumn(name = "autor_id")
 	private Autor autor;
 
+	@JsonManagedReference
 	@ManyToMany
-	@JoinTable(name="livro_categoria", joinColumns = @JoinColumn(name="livro_id"),
-	inverseJoinColumns = @JoinColumn(name="categoria_id")
-	)
-	private Set<Categoria> categorias = new HashSet<>();
+	@JoinTable(name = "livro_categoria", joinColumns = @JoinColumn(name = "livro_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+	private Set<Categoria> categorias;
 
 	public Livro() {
 	}
@@ -110,7 +111,5 @@ public class Livro {
 		Livro other = (Livro) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	
 
 }

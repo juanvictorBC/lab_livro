@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,7 @@ public class Autor {
 	public Autor() {
 	}
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "autor")
 	private Set<Livro> livros = new HashSet<>();
 
